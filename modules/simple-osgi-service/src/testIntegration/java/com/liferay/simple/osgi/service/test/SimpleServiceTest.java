@@ -24,9 +24,11 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
@@ -49,15 +51,17 @@ public class SimpleServiceTest {
 		BundleContext bundleContext = FrameworkUtil.getBundle(
 			SimpleService.class).getBundleContext();
 
-		ServiceReference<SimpleService> serviceReference = bundleContext.getServiceReference(SimpleService.class);
+		ServiceReference<SimpleService> serviceReference =
+			bundleContext.getServiceReference(SimpleService.class);
 
 		Assert.assertNotNull(serviceReference);
-		
-		SimpleService simpleService = bundleContext.getService(serviceReference);
-	
+
+		SimpleService simpleService = bundleContext.getService(
+			serviceReference);
+
 		Assert.assertNotNull(simpleService);
 
 		Assert.assertEquals("I am simple!", simpleService.getValue());
 	}
-	
+
 }

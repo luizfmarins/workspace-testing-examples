@@ -1,0 +1,4 @@
+Bundle-Name: Simple OSGi Service
+Bundle-SymbolicName: com.liferay.simple.osgi.service
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.simple.osgi.service.api

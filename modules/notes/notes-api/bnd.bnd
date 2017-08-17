@@ -1,0 +1,9 @@
+Bundle-Name: notes-api
+Bundle-SymbolicName: com.liferay.notes.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.notes.exception,\
+	com.liferay.notes.model,\
+	com.liferay.notes.service,\
+	com.liferay.notes.service.persistence
+-includeresource: META-INF/service.xml=../notes-service/service.xml

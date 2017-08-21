@@ -1,17 +1,12 @@
 task deployTestableModules {
 	dependsOn {
-		subprojects.findAll{ testable(it) }.deploy
+		subprojects.findAll{ ProjectTester.isTestable(it) }.deploy
 	}
-}
-
-boolean testable(project) {
-	project.plugins.hasPlugin("com.liferay.osgi.plugin") && 
-		!project.name.endsWith("test")
 }
 
 subprojects { subProject ->
 	afterEvaluate {
-		if (testable(subProject)) {
+		if (ProjectTester.isTestable(subProject)) {
 			subProject.startTestableTomcat.dependsOn deployTestableModules
 		}
 	}

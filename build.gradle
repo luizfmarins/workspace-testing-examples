@@ -5,9 +5,7 @@ task deployTestableModules {
 }
 
 subprojects { subProject ->
-	afterEvaluate {
-		if (ProjectTester.isTestable(subProject)) {
-			subProject.startTestableTomcat.dependsOn deployTestableModules
-		}
+	subProject.plugins.withId('com.liferay.test.integration') {
+		startTestableTomcat.dependsOn deployTestableModules
 	}
 }

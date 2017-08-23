@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package com.liferay.simple.osgi.service.test;
+package com.liferay.simple.osgi.test;
 
+import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.simple.osgi.service.api.SimpleService;
-
-import java.io.File;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
@@ -38,13 +31,6 @@ import org.osgi.framework.ServiceReference;
  */
 @RunWith(Arquillian.class)
 public class SimpleServiceTest {
-
-	@Deployment
-	public static JavaArchive create() throws Exception {
-		final File jarFile = new File(System.getProperty("jarFile"));
-
-		return ShrinkWrap.createFromZipFile(JavaArchive.class, jarFile);
-	}
 
 	@Test
 	public void testSimpleService() throws Exception {

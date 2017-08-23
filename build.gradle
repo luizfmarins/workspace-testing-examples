@@ -1,3 +1,9 @@
+task removeDefaultTestBundles(type: Delete) {
+	delete fileTree("${gradle.liferayWorkspace.homeDir}/osgi/test") {
+        include '*.jar'
+    }
+}
+
 task deployTestableModules {
 	dependsOn {
 		subprojects.findAll{ ProjectTester.isTestable(it) }.deploy
@@ -6,6 +12,18 @@ task deployTestableModules {
 
 subprojects { subProject ->
 	subProject.plugins.withId('com.liferay.test.integration') {
+		configurations {
+			testModules
+		}
+
+		dependencies {
+			testModules group: "org.apache.aries.jmx", name: "org.apache.aries.jmx.core", version: "1.1.7"
+			testModules group: "com.liferay.portal", name: "com.liferay.portal.test", version: "3.0.0"
+			testModules group: "com.liferay.portal", name: "com.liferay.portal.test.integration", version: "3.0.0"
+		}
+
+		setUpTestableTomcat.finalizedBy removeDefaultTestBundles
+
 		startTestableTomcat.dependsOn deployTestableModules
 	}
 }

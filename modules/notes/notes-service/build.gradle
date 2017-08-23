@@ -8,6 +8,7 @@ dependencies {
 
 buildService {
 	apiDir = "../notes-api/src/main/java"
+	testDir = "../notes-test/src/testIntegration/java"
 }
 
 group = "com.liferay.notes"

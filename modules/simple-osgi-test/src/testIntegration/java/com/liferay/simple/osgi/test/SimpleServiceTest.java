@@ -17,9 +17,12 @@
 package com.liferay.simple.osgi.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.simple.osgi.service.api.SimpleService;
 
 import org.junit.Assert;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
@@ -32,6 +35,11 @@ import org.osgi.framework.ServiceReference;
 @RunWith(Arquillian.class)
 public class SimpleServiceTest {
 
+	@ClassRule
+	@Rule
+	public static final LiferayIntegrationTestRule liferayIntegrationTestRule = 
+		new LiferayIntegrationTestRule();
+	
 	@Test
 	public void testSimpleService() throws Exception {
 		BundleContext bundleContext = FrameworkUtil.getBundle(

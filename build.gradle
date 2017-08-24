@@ -22,7 +22,7 @@ subprojects { subProject ->
 			testModules group: "com.liferay.portal", name: "com.liferay.portal.test.integration", version: "3.0.0"
 		}
 
-		setUpTestableTomcat.finalizedBy removeDefaultTestBundles
+		copyTestModules.dependsOn removeDefaultTestBundles
 
 		startTestableTomcat.dependsOn deployTestableModules
 	}

@@ -1,4 +1,10 @@
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
 dependencies {
+	testIntegrationCompile group: "br.marins", name: "insistence.layer.api", version: "1.0-SNAPSHOT"
 	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.7"
 	testIntegrationCompile group: "com.liferay.portal", name: "com.liferay.portal.test", version: "3.0.0"
 	testIntegrationCompile group: "com.liferay.portal", name: "com.liferay.portal.test.integration", version: "3.0.0"

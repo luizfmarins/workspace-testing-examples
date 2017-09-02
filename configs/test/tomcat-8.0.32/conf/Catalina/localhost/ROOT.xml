@@ -1,0 +1,14 @@
+<Context crossContext="true" path="">
+
+	<Resource
+		name="jdbc/LiferayPool"
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="com.liferay.insistence.layer.jdbc.Driver"
+		url="jdbc:hsqldb:lportal"
+		username="sa"
+		password=""
+		maxActive="20"
+	/>
+
+</Context>

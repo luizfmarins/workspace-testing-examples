@@ -15,13 +15,11 @@
 package com.liferay.notes.service.persistence.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-
 import com.liferay.notes.exception.NoSuchNoteException;
 import com.liferay.notes.model.Note;
 import com.liferay.notes.service.NoteLocalServiceUtil;
 import com.liferay.notes.service.persistence.NotePersistence;
 import com.liferay.notes.service.persistence.NoteUtil;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
@@ -40,25 +38,21 @@ import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PersistenceTestRule;
 import com.liferay.portal.test.rule.TransactionalTestRule;
-
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
-import java.io.Serializable;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import br.marins.insistence.layer.api.InsistenceLayerFacade;
 
 /**
  * @generated
@@ -80,17 +74,13 @@ public class NotePersistenceTest {
 		Class<?> clazz = _persistence.getClass();
 
 		_dynamicQueryClassLoader = clazz.getClassLoader();
+		InsistenceLayerFacade.enableInsistenceLayer();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		Iterator<Note> iterator = _notes.iterator();
-
-		while (iterator.hasNext()) {
-			_persistence.remove(iterator.next());
-
-			iterator.remove();
-		}
+		InsistenceLayerFacade.rollback();
+		InsistenceLayerFacade.disableInsistenceLayer();
 	}
 
 	@Test

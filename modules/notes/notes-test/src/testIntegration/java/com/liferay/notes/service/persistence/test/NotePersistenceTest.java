@@ -33,12 +33,14 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.util.IntegerWrapper;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PersistenceTestRule;
 import com.liferay.portal.test.rule.TransactionalTestRule;
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -52,7 +54,6 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import br.marins.insistence.layer.api.InsistenceLayerFacade;
 
 /**
  * @generated
@@ -68,19 +69,34 @@ public class NotePersistenceTest {
 				"com.liferay.notes.service"));
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		_persistence = NoteUtil.getPersistence();
 
 		Class<?> clazz = _persistence.getClass();
 
 		_dynamicQueryClassLoader = clazz.getClassLoader();
-		InsistenceLayerFacade.enableInsistenceLayer();
+
+		//Strings.isNullOrEmpty("abc");
+
+		Class<?> insistenceLayerFacade = PortalUtil.class.getClassLoader()
+				.loadClass("br.marins.insistence.layer.api.InsistenceLayerFacade");
+		Method enableInsistenceLayer = insistenceLayerFacade.getMethod("enableInsistenceLayer");
+		enableInsistenceLayer.invoke(insistenceLayerFacade);
+
+		System.out.println("");
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		InsistenceLayerFacade.rollback();
-		InsistenceLayerFacade.disableInsistenceLayer();
+		Class<?> insistenceLayerFacade = PortalUtil.class.getClassLoader()
+				.loadClass("br.marins.insistence.layer.api.InsistenceLayerFacade");
+		Method rollback = insistenceLayerFacade.getMethod("rollback");
+		rollback.invoke(insistenceLayerFacade);
+
+		Method disableInsistenceLayer = insistenceLayerFacade.getMethod("disableInsistenceLayer");
+		disableInsistenceLayer.invoke(insistenceLayerFacade);
+
+		System.out.println("");
 	}
 
 	@Test

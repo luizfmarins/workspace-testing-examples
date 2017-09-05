@@ -1,14 +1,17 @@
 <Context crossContext="true" path="">
-
 	<Resource
 		name="jdbc/LiferayPool"
-		auth="Container"
+		dauth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="com.liferay.insistence.layer.jdbc.Driver"
-		url="jdbc:hsqldb:lportal"
-		username="sa"
+		url="jdbc:mariadb://localhost/lportal_test?characterEncoding=UTF-8&amp;dontTrackOpenResources=true&amp;holdResultsOpenOverStatementClose=true&amp;useFastDateParsing=false&amp;useUnicode=true"
+		username="root"
 		password=""
-		maxActive="20"
+		maxActive="100"
+		maxIdle="30"
+		maxWait="10000"
+		maxPoolSize="75"
+		minPoolSize="10"
+		acquirementIncrement="5"
 	/>
-
 </Context>
